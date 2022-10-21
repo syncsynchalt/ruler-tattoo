@@ -184,16 +184,16 @@ function drawCentimeters(ctx) {
     }
     const vSize = 0.7;
     ctx.beginPath();
-    ctx.moveTo(...coords(ctx, 50 - vSize, -V_OFFS - 0.55 + vSize));
-    ctx.lineTo(...coords(ctx, 50, -V_OFFS - 0.55 - vSize));
-    ctx.lineTo(...coords(ctx, 50 + vSize, -V_OFFS - 0.55 + vSize));
+    ctx.moveTo(...coords(ctx, 50 - vSize, -V_OFFS - 0.55 - vSize));
+    ctx.lineTo(...coords(ctx, 50, -V_OFFS - 0.55 + vSize));
+    ctx.lineTo(...coords(ctx, 50 + vSize, -V_OFFS - 0.55 - vSize));
     ctx.stroke();
     const xSize = 0.7;
     ctx.beginPath();
-    ctx.moveTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.6 + xSize));
-    ctx.lineTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.6 - xSize));
-    ctx.moveTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.6 + xSize));
-    ctx.lineTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.6 - xSize));
+    ctx.moveTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.5 + xSize));
+    ctx.lineTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.5 - xSize));
+    ctx.moveTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.5 + xSize));
+    ctx.lineTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.5 - xSize));
     ctx.stroke();
 
     ctx.restore();
