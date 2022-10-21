@@ -189,7 +189,7 @@ function drawCentimeters(ctx) {
     ctx.lineWidth = 1.5;
     ctx.strokeStyle = 'black';
     for (let i = 0; i <= 150; i += 10) {
-        if (i === 555 || i === 100) {
+        if (i === 100) {
             continue;
         }
         ctx.beginPath();
@@ -199,16 +199,16 @@ function drawCentimeters(ctx) {
     }
     const vSize = 0.7;
     ctx.beginPath();
-    ctx.moveTo(...coords(ctx, 50 - vSize, -V_OFFS - 0.3 + vSize));
-    ctx.lineTo(...coords(ctx, 50, -V_OFFS - 0.3 - vSize));
-    ctx.lineTo(...coords(ctx, 50 + vSize, -V_OFFS - 0.3 + vSize));
+    ctx.moveTo(...coords(ctx, 50 - vSize, -V_OFFS - 0.55 + vSize));
+    ctx.lineTo(...coords(ctx, 50, -V_OFFS - 0.55 - vSize));
+    ctx.lineTo(...coords(ctx, 50 + vSize, -V_OFFS - 0.55 + vSize));
     ctx.stroke();
     const xSize = 0.7;
     ctx.beginPath();
-    ctx.moveTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.8 + xSize));
-    ctx.lineTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.8 - xSize));
-    ctx.moveTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.8 + xSize));
-    ctx.lineTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.8 - xSize));
+    ctx.moveTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.6 + xSize));
+    ctx.lineTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.6 - xSize));
+    ctx.moveTo(...coords(ctx, 100 + xSize, -V_OFFS - 0.6 + xSize));
+    ctx.lineTo(...coords(ctx, 100 - xSize, -V_OFFS - 0.6 - xSize));
     ctx.stroke();
 
     ctx.restore();
@@ -228,7 +228,9 @@ function drawInches(ctx) {
         }
         ctx.beginPath();
         ctx.moveTo(...coords(ctx, i * MM_PER_INCH, V_OFFS));
-        const h = (i === 1 || i === 0) ? 2 * markHeight : markHeight;
+        let h = markHeight;
+        if (i === 1 || i === 0) { h *= 2 }
+        if (i === 5) { h *= 1.7 }
         ctx.lineTo(...coords(ctx, i * MM_PER_INCH, V_OFFS + h));
         ctx.stroke();
     }
