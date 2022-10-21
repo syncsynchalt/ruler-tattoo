@@ -3,8 +3,8 @@
 const TWO_PI = 2 * Math.PI;
 const MM_PER_INCH = 25.4;
 const V_OFFS = 1.0;
-const CIR_RADIUS = MM_PER_INCH;
-const CIR_X_ORIG = 3 * CIR_RADIUS;
+const CIR_RADIUS = MM_PER_INCH * 1.0;
+const CIR_X_ORIG = 3 * MM_PER_INCH;
 const PIX_PER = 15;
 
 /**
@@ -42,8 +42,8 @@ function coords(ctx, x, y) {
     // noinspection JSUnresolvedVariable
     const ratio = ctx.canvas._ratio || 1;
     const pixelsPerMm = PIX_PER / ratio;
-    let cx = ctx.canvas.width / ratio / 2 + y * pixelsPerMm;
-    let cy = 10 * PIX_PER / ratio + x * pixelsPerMm;
+    let cx = ctx.canvas.width / ratio / 2.5 + y * pixelsPerMm;
+    let cy = 7 * PIX_PER / ratio + x * pixelsPerMm;
     return [cx, cy];
 }
 
@@ -72,27 +72,11 @@ function arc(ctx, x, y, radius, arcStart, arcEnd) {
 function draw() {
     const canvas = document.getElementById('cvs');
     const ctx = convertCanvasHiDPI(canvas);
-    drawGuides(ctx);
     drawArcs(ctx);
     drawArcResults(ctx);
     drawZeroLine(ctx);
     drawCentimeters(ctx);
     drawInches(ctx);
-}
-
-function drawGuides(ctx) {
-    ctx.save();
-    ctx.beginPath();
-    ctx.strokeStyle = 'red';
-    ctx.lineWidth = 1;
-    ctx.setLineDash([1, 1]);
-    ctx.moveTo(...coords(ctx, -15, -40));
-    ctx.lineTo(...coords(ctx, -15, 40));
-    ctx.lineTo(...coords(ctx, 165, 40));
-    ctx.lineTo(...coords(ctx, 165, -40));
-    ctx.closePath();
-    ctx.stroke();
-    ctx.restore();
 }
 
 /**
@@ -118,21 +102,22 @@ function drawArcs(ctx) {
     arc(ctx, ox - 0*r1, oy, r1, -2, 11);
     arc(ctx, ox - 1*r1, oy, r1, -2, 11);
     arc(ctx, ox - 2*r1, oy, r1, -2, 11);
-    arc(ctx, ox - 2*r1, oy, r1, 50, 68);
-    arc(ctx, ox - 3*r1, oy, r1, 120, 130);
+    arc(ctx, ox - 2*r1, oy, r1, 40, 78);
+    arc(ctx, ox - 3*r1, oy, r1, 120, 140);
 
     // 60deg
-    arc(ctx, ox + CIR_RADIUS, oy, CIR_RADIUS, 55, 66);
+    arc(ctx, ox + CIR_RADIUS, oy, CIR_RADIUS, 51, 69);
 
     // 30deg
+    const r2 = CIR_RADIUS*0.8;
     const [ox1, oy1] = [ox + CIR_RADIUS/2, oy + CIR_RADIUS * Math.sqrt(3)/2];
-    arc(ctx, ox + CIR_RADIUS, oy, CIR_RADIUS, 110, 130);
-    arc(ctx, ox1, oy1, CIR_RADIUS, 165, 190);
+    arc(ctx, ox + CIR_RADIUS, oy, r2, 98, 123);
+    arc(ctx, ox1, oy1, r2, 175, 200);
 
     // 15deg
     const [ox2, oy2] = [ox + CIR_RADIUS * Math.sqrt(3)/2, oy + CIR_RADIUS/2];
-    arc(ctx, ox + CIR_RADIUS, oy, CIR_RADIUS/2, 123, 155);
-    arc(ctx, ox2, oy2, CIR_RADIUS/2, 180, 210);
+    arc(ctx, ox + CIR_RADIUS, oy, CIR_RADIUS, 140, 163);
+    arc(ctx, ox2, oy2, CIR_RADIUS, 170, 200);
 
     ctx.restore();
 }
@@ -154,11 +139,11 @@ function drawArcResults(ctx) {
     ctx.beginPath();
     ctx.strokeStyle = 'gray';
     ctx.lineWidth = 1.5;
-    drawRay(90, 1.2);
+    drawRay(90, 1.1);
     drawRay(180 - 45, 1.4);
     drawRay(180 - 19.25, 2.2);
-    drawRay(60, 1.3);
-    drawRay(30, 2.3);
+    drawRay(60, 1.2);
+    drawRay(30, 2.1);
     drawRay(15, 2.8);
     ctx.restore();
 }
@@ -264,6 +249,7 @@ function drawZeroLine(ctx) {
         drawDot(ctx, i, 0, 0.3);
     }
     ctx.beginPath();
+    // noinspection JSUnresolvedVariable
     ctx.arc(...coords(ctx, -2.2, 0), ctx.canvas._ratio * 2, 0, TWO_PI);
     ctx.stroke();
     ctx.restore();
